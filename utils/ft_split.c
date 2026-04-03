@@ -9,11 +9,11 @@ static size_t	count_words(char const *s, char c)
 	words = 0;
 	while (s[i])
 	{
-		while (s[i] == c && s[i])
+		while (s[i] && s[i] == c)
 			i++;
 		if (s[i])
 			words++;
-		while (s[i] != c && s[i])
+		while (s[i] && s[i] != c)
 			i++;
 	}
 	return (words);
@@ -26,26 +26,44 @@ static void	free_all(char **ptr, size_t a)
 	free(ptr);
 }
 
+static char	*word_dup(char const *s, size_t start, size_t len)
+{
+	char	*word;
+	size_t	i;
+
+	word = malloc(sizeof(char) * (len + 1));
+	if (!word)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		word[i] = s[start + i];
+		i++;
+	}
+	word[i] = '\0';
+	return (word);
+}
+
 static int	fill_ptr(char **ptr, char const *s, char c)
 {
 	size_t	i;
+	size_t	start;
 	size_t	len;
-	size_t	x;
 	size_t	a;
 
 	i = 0;
 	a = 0;
 	while (s[i])
 	{
-		while (s[i] == c && s[i])
+		while (s[i] && s[i] == c)
 			i++;
 		if (!s[i])
 			break ;
-		x = i;
-		while (s[i] != c && s[i])
+		start = i;
+		while (s[i] && s[i] != c)
 			i++;
-		len = i - x;
-		ptr[a] = ft_substr(s, x, len);
+		len = i - start;
+		ptr[a] = word_dup(s, start, len);
 		if (!ptr[a])
 			return (free_all(ptr, a), 0);
 		a++;

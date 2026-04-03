@@ -7,10 +7,51 @@
 
 typedef struct s_stack
 {
-	int value;            // Sayının kendisi
-	int index;            // Sıralamadaki hedef konumu
-	struct s_stack *next; // Sonraki düğüm
-	struct s_stack *prev; // Önceki düğüm
+	int				value; // Sayının kendisi
+	int				index; // Sıralamadki konum
+	struct s_stack	*next; // Sonraki node
+	struct s_stack	*prev; // Önceki node
 }	t_stack;
+
+/*
+** LINKSTACK
+*/
+void	stack_add_back(t_stack **stack, t_stack *new_node);
+void	stack_add_front(t_stack **stack, t_stack *new_node);
+void	stack_clear(t_stack **stack);
+t_stack	*stack_last(t_stack *stack);
+t_stack	*stack_new(int value);
+int		stack_size(t_stack *stack);
+
+/*
+** MOVES
+*/
+void	pa(t_stack **a, t_stack **b);
+void	pb(t_stack **a, t_stack **b);
+void	sa(t_stack **a);
+void	sb(t_stack **b);
+void	ss(t_stack **a, t_stack **b);
+void	ra(t_stack **a);
+void	rb(t_stack **b);
+void	rr(t_stack **a, t_stack **b);
+void	rra(t_stack **a);
+void	rrb(t_stack **b);
+void	rrr(t_stack **a, t_stack **b);
+
+/*
+** HELPERS
+*/
+int		is_sorted(t_stack *stack);
+
+/*
+**PARSING
+*/
+
+
+/*
+**UTILS
+*/
+char	**ft_split(char const *s, char c);
+void	ft_error(void);
 
 #endif

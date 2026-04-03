@@ -1,26 +1,40 @@
+NAME		= push_swap
 
-NAME = libft.a
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+SRC			= main.c \
+			  linkstack/stack_add_back.c \
+			  linkstack/stack_add_front.c \
+			  linkstack/stack_clear.c \
+			  linkstack/stack_last.c \
+			  linkstack/stack_new.c \
+			  linkstack/stack_size.c \
+			  moves/push.c \
+			  moves/stack_a.c \
+			  moves/stack_b.c \
+			  moves/stack_common.c \
+			  utils/ft_error.c \
+			  utils/ft_split.c \
+			  stack_helper/is_sorted.c
 
-SRCS = 
+OBJ_DIR		= obj
+OBJ			= $(SRC:%.c=$(OBJ_DIR)/%.o)
 
-OBJS = $(SRCS:.c=.o)
-
-RM = rm -f
-AR = ar rcs
+HEADER		= push_swap.h
+RM			= rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.c libft.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: %.c $(HEADER)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
-	$(RM) *.o
+	$(RM) -r $(OBJ_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
