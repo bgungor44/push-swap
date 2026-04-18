@@ -34,6 +34,7 @@ void	indexing(t_stack *stack)
 	}
 }
 
+
 int	chunk_size(int size)
 {
 	if (size <= 100)
