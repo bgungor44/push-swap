@@ -34,38 +34,59 @@ void	indexing(t_stack *stack)
 	}
 }
 
-
 int	chunk_size(int size)
 {
-	if (size <= 100)
+	if (size <= 10)
+		return (3);
+	else if (size <= 50)
+		return (7);
+	else if (size <= 100)
 		return (15);
-	return (30);
+	else if (size <= 500)
+		return (30);
+	return (45);
+}
+
+int	has_chunk_value(t_stack *a, int start, int end)
+{
+	while (a)
+	{
+		if (a->index >= start && a->index <= end)
+			return (1);
+		a = a->next;
+	}
+	return (0);
 }
 
 void	push_chunks_to_b(t_stack **a, t_stack **b)
 {
 	int	size;
-	int	chunk_size;
-	int	limit;
-	int	pushed;
+	int	chunksize;
+	int	start;
+	int	end;
+	int	mid;
 
 	size = stack_size(*a);
-	chunk_size = get_chunk_size(size);
-	limit = chunk_size - 1;
-	pushed = 0;
+	chunksize = chunk_size(size);
+	start = 0;
+	end = chunksize - 1;
 	while (*a)
 	{
-		if ((*a)->index <= limit)
+		if (end >= size)
+			end = size - 1;
+		mid = (start + end) / 2;
+		while (has_chunk_value(*a, start, end))
 		{
-			pb(a, b);
-			pushed++;
-			if (pushed == chunk_size)
+			if ((*a)->index >= start && (*a)->index <= end)
 			{
-				limit += chunk_size;
-				pushed = 0;
+				pb(a, b);
+				if ((*b)->index < mid)
+					rb(b);
 			}
+			else
+				ra(a);
 		}
-		else
-			ra(a);
+		start += chunksize;
+		end += chunksize;
 	}
 }
