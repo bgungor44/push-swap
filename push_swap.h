@@ -91,16 +91,17 @@ void	chunk_sort(t_stack **a, t_stack **b);
 char	**ft_split(char const *s, char c);
 void	free_split(char **split);
 void	ft_error(void);
+int	ft_strcmp(const char *s1, const char *s2);
+long	ft_atol(const char *str);
 
 /*
 **PARSİNG
 */
 int		is_number_string(char *s);
-long	ft_atol(const char *str);
 int		the_same(t_stack *a, int value);
 int		add_number_to_stack(t_stack **a, char *token);
 int		parse_arg(t_stack **a, char *arg);
-int		parse_input(t_stack **a, int ac, char **av);
+int		parse_input(t_stack **a, int *mode, int ac, char **av);
 
 
 #endif
