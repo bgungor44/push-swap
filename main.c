@@ -28,6 +28,8 @@ int	main(int ac, char **av)
 		chunk_sort(&a, &b);
 	// else if (mode == 3)
 	// 	adaptive_sort(&a, &b);
+	else if (mode == 4)
+		radix_sort(&a, &b);
 	else
 		chunk_sort(&a, &b);
 	stack_clear(&a);

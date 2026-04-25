@@ -86,6 +86,7 @@ void	chunk_sort(t_stack **a, t_stack **b);
 
 int	get_all_bits(int max_index);
 int	get_bit(int index, int bit);
+void	radix_sort(t_stack **a, t_stack **b);
 
 /*
 **UTILS
